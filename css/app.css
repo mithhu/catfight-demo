@@ -1,0 +1,28 @@
+table {
+  border: 1px solid green;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.green,
+.yellow {
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+}
+
+.green {
+  background-color: green;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.chessboard {
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
