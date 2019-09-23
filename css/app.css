@@ -6,8 +6,9 @@ table {
   text-align: center;
 }
 
-.green,
-.yellow {
+.grey,
+.yellow,
+.green {
   width: 60px;
   height: 60px;
   font-size: 40px;
@@ -15,6 +16,9 @@ table {
 
 .green {
   background-color: green;
+}
+.grey {
+  background-color: #f8f9fa;
 }
 
 .yellow {
@@ -25,4 +29,9 @@ table {
   text-align: center;
   padding-bottom: 20px;
   padding-top: 10px;
+}
+
+img {
+  height: 60px;
+  width: 60px;
 }
