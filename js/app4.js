@@ -1,24 +1,19 @@
-const idSelector = (store, id) => {
-  console.log("1st");
+const idSelector = store => {
   for (let i = 0; i < store.length; i++) {
     for (let j = 0; j < store.length; j++) {
       store[i][j] = false;
-      document.getElementById(`${i}${j}`).className = "grey";
+      document.getElementById(`${i}${j}`).className = "green";
     }
   }
-  if (document.getElementById(id).innerHTML) {
-    let selectedAvatar = document.getElementById(id).innerHTML;
-    let [i, j] = id.split("");
+  const selectedElement = event.srcElement.id;
+  if (
+    document.getElementById(selectedElement).innerHTML === "A" ||
+    document.getElementById(selectedElement).innerHTML === "B"
+  ) {
+    console.log(selectedElement);
+    let [i, j] = selectedElement.split("");
     i = parseInt(i);
     j = parseInt(j);
-
-    // for (let i = 0; i < store.length; i++) {
-    //   for (let j = 0; j < store.length; j++) {
-    //     store[i][j] = false;
-    //     document.getElementById(`${i}${j}`).className = "grey";
-    //   }
-    // }
-    // console.log(id);
     store[i][j] = true;
     store[i + 1] === undefined ? null : (store[i + 1][j] = true); //checked only for 1st index because if 1st index is undefined, then 2nd index will be an uncaught type error
     store[i + 2] === undefined ? null : (store[i + 2][j] = true);
@@ -29,50 +24,18 @@ const idSelector = (store, id) => {
     store[i][j - 1] === undefined ? null : (store[i][j - 1] = true);
     store[i][j - 2] === undefined ? null : (store[i][j - 2] = true);
 
-    // console.log("m", store);
+    console.log("m", store);
     for (let i = 0; i < store.length; i++) {
       for (let j = 0; j < store.length; j++) {
         if (store[i][j]) {
-          // console.log("hey", i, j);
           document.getElementById(`${i}${j}`).className = "yellow";
-          // console.log("jfjg", selectedAvatar);
-          document.getElementById(`${i}${j}`).addEventListener("click", () => {
-            // console.log("yeh", i, j);
-            moveHandler(`${i}${j}`, id, selectedAvatar);
-          });
         }
       }
     }
   }
 };
 
-const moveHandler = (newId, oldId, selectedAvatar) => {
-  console.log("newId", newId);
-  console.log("oldID", oldId);
-
-  if (
-    document.getElementById(newId).className === "grey" &&
-    document.getElementById(oldId).className === "grey"
-  ) {
-    document.getElementById(newId).innerHTML = selectedAvatar;
-    document.getElementById(oldId).innerHTML = null;
-    console.log("move");
-    document
-      .getElementById(newId)
-      .removeEventListener("click", () => moveHandler());
-    document
-      .getElementById(newId)
-      .removeEventListener("click", () => idSelector());
-    // document
-    //   .getElementById(oldId)
-    //   .removeEventListener("click", () => moveHandler());
-  } else {
-    console.log("wrong");
-    // document.getElementById(newId).innerHTML = selectedAvatar;
-    // document.getElementById(oldId).innerHTML = null;
-  }
-};
-const selector = () => {
+const selector = e => {
   document.getElementById("start").disabled = true;
   let indexA1 = getRandomIndex(0, store.length - 1);
   let indexA2 = getRandomIndex(0, store.length - 1);
@@ -85,13 +48,9 @@ const selector = () => {
     indexB = `${indexB1}${indexB2}`;
   }
   const selectedA = document.getElementById(indexA);
-  const daenerys = "<img src='./../css/daenerys.png' width='16' height='16'>";
-  selectedA.innerHTML = daenerys;
+  selectedA.innerHTML = "A";
   const selectedB = document.getElementById(indexB);
-  const cersei = "<img src='./../css/cersei.png' width='16' height='16'>";
-  selectedB.innerHTML = cersei;
-  store[indexA1][indexA2] = true;
-  store[indexB1][indexB2] = true;
+  selectedB.innerHTML = "B";
   console.log("select", store);
 };
 
@@ -111,10 +70,8 @@ for (let i = 0; i < 10; i++) {
     let td = document.createElement("td");
     td.setAttribute("id", `${i}${j}`);
     store[i][j] = false;
-    td.addEventListener("click", () =>
-      idSelector(store, td.getAttribute("id"))
-    );
-    td.className = "grey";
+    td.addEventListener("mouseover", () => idSelector(store));
+    td.className = "green";
     tr.appendChild(td);
   }
   table.appendChild(tr);

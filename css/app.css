@@ -21,6 +21,10 @@ table {
   background-color: #f8f9fa;
 }
 
+.red {
+  background-color: red;
+}
+
 .yellow {
   background-color: yellow;
 }
